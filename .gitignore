@@ -6,3 +6,11 @@
 *.iml
 out
 gen
+.DS_Store
+__pycache__/
+*.db
+.env
+.venv
+env/
+venv/
+ENV/
