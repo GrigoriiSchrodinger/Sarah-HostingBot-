@@ -1,6 +1,6 @@
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
-from aiogram.filters import Command
 
 from handlers.state.user import Form
 from utils.config import dp
@@ -58,7 +58,7 @@ async def process_finish(message: Message, state: FSMContext):
     else:
         await state.clear()
         await state.set_state(Form.email)
-        await  message.answer(
+        await message.answer(
             text="Ну давай заново) Отправь мне свой email.",
             reply_markup=ReplyKeyboardRemove()
         )

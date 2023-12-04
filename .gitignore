@@ -14,3 +14,5 @@ gen
 env/
 venv/
 ENV/
+*.sqlite
+*.log
