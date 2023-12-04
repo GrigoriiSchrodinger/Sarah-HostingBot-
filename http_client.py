@@ -12,4 +12,3 @@ class ClientHttp:
         except Exception as error:
             logger.logger.warning(error)
             return requests.RequestException
-

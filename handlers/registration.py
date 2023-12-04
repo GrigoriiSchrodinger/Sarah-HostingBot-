@@ -62,4 +62,3 @@ async def process_finish(message: Message, state: FSMContext):
             text="Ну давай заново) Отправь мне свой email.",
             reply_markup=ReplyKeyboardRemove()
         )
-
