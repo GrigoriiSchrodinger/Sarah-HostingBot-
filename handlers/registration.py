@@ -1,9 +1,11 @@
+import sqlite3
+
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 
 from handlers.state.user import Form
-from utils.config import dp
+from utils.config import dp, db
 
 
 @dp.message(Command("registration"))
@@ -47,17 +49,27 @@ async def process_password(message: Message, state: FSMContext):
 @dp.message(Form.ready)
 async def process_finish(message: Message, state: FSMContext):
     requests_message = message.text
-    await state.update_data(ready=requests_message)
+    data = await state.get_data()
 
     if requests_message == "Да":
-        await message.answer(
-            text=f"Сохранила!",
-            reply_markup=ReplyKeyboardRemove()
-        )
+        try:
+            db.insert_user(
+                id_user=message.from_user.id,
+                email=data.get("email"),
+                password=data.get("password")
+            )
+            await message.answer(
+                text=f"Сохранила!",
+                reply_markup=ReplyKeyboardRemove()
+            )
+        except sqlite3.IntegrityError:
+            await message.answer(
+                text=f"Ты уже зареган, мальчик мой",
+                reply_markup=ReplyKeyboardRemove()
+            )
         await state.clear()
     else:
         await state.clear()
-        await state.set_state(Form.email)
         await message.answer(
             text="Ну давай заново) Отправь мне свой email.",
             reply_markup=ReplyKeyboardRemove()

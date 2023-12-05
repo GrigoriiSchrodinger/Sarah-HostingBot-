@@ -3,25 +3,32 @@ import asyncio
 from aiogram import Bot
 from aiogram.enums import ParseMode
 
-from database.sql_queries.create import CREATE_TABLE_USERS
+from handlers.delete_user import command_delete_user
 from handlers.registration import command_registration
 from handlers.start import command_start_handler
 from utils.config import TOKEN, dp, db
 from utils.logger import logger
 from utils.text import LOGO
 
+commands_handlers = [
+    command_start_handler,
+    command_registration,
+    command_delete_user
+]
 
-async def main() -> None:
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    dp.message.register(command_start_handler)
-    dp.message.register(command_registration)
-    db.create_table(query=CREATE_TABLE_USERS)
+
+async def main(bot: Bot) -> None:
+    for handler in commands_handlers:
+        dp.message.register(handler)
+
+    db.create_table_user()
     await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
+    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     try:
         logger.info(LOGO)
-        asyncio.run(main())
+        asyncio.run(main(bot))
     except Exception as error:
         logger.warning(error)

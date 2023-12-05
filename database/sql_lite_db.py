@@ -4,9 +4,10 @@ from utils.logger import logger
 
 
 class SQLiteDB:
+    path_db = 'database/user.db'
     _instance = None
 
-    def __new__(cls, db_name):
+    def __new__(cls, db_name=path_db):
         if cls._instance is None:
             logger.debug("create new connect SQLiteDB")
             cls._instance = super(SQLiteDB, cls).__new__(cls)
@@ -19,9 +20,9 @@ class SQLiteDB:
         self.cursor.execute(query)
         self.conn.commit()
 
-    def insert_data(self, query, data):
-        logger.debug(f"query - {query}\ndata - {data}")
-        self.cursor.execute(query, data)
+    def insert_data(self, query):
+        logger.debug(f"query - {query}")
+        self.cursor.execute(query)
         self.conn.commit()
 
     def fetch_data(self, query):

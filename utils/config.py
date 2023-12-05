@@ -2,9 +2,9 @@ from os import getenv
 
 from aiogram import Dispatcher
 
-from database.database_manager import SQLiteDB
+from database.manager import DataBaseManager
 
 TOKEN = getenv("BOT_TOKEN", "6887297309:AAH8D3nQ1zyF7gA2OtIVVhAVXYYpcnBYyO4")
 
 dp = Dispatcher()
-db = SQLiteDB('database/user.db')
+db = DataBaseManager()
