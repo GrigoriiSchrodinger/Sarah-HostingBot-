@@ -15,12 +15,7 @@ class SQLiteDB:
             cls._instance.cursor = cls._instance.conn.cursor()
         return cls._instance
 
-    def create_table(self, query):
-        logger.debug(query)
-        self.cursor.execute(query)
-        self.conn.commit()
-
-    def insert_data(self, query):
+    def execute_data(self, query):
         logger.debug(f"query - {query}")
         self.cursor.execute(query)
         self.conn.commit()

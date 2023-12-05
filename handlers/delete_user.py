@@ -2,13 +2,13 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 
-from handlers.state.user import Form
+from handlers.state.delete import DeleteForm
 from utils.config import dp, db
 
 
 @dp.message(Command("delete"))
 async def command_delete_user(message: Message, state: FSMContext) -> None:
-    await state.set_state(Form.ready)
+    await state.set_state(DeleteForm.ready)
     await message.answer(
         text=f"Ты уверен?",
         reply_markup=ReplyKeyboardMarkup(
@@ -23,7 +23,7 @@ async def command_delete_user(message: Message, state: FSMContext) -> None:
     )
 
 
-@dp.message(Form.ready)
+@dp.message(DeleteForm.ready)
 async def process_finish(message: Message, state: FSMContext):
     requests_message = message.text
 

@@ -6,7 +6,7 @@ from database.sql_queries.insert import USER_INSERT
 
 class DataBaseManager(SQLiteDB):
     def create_table_user(self):
-        self.create_table(CREATE_TABLE_USERS)
+        self.execute_data(CREATE_TABLE_USERS)
 
     def insert_user(self, id_user: int, email: str, password: str):
         user = USER_INSERT.format(
@@ -14,10 +14,10 @@ class DataBaseManager(SQLiteDB):
             email=email,
             password=password,
         )
-        self.insert_data(user)
+        self.execute_data(user)
 
     def delete_user(self, id_user):
         user = DELETE_USER.format(
             id_user=id_user,
         )
-        self.insert_data(user)
+        self.execute_data(user)
