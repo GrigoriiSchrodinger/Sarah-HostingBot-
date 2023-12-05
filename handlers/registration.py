@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 
-from handlers.state.user import RegistrationForm
+from handlers.state.registration_form import RegistrationForm
 from utils.config import dp, db
 
 

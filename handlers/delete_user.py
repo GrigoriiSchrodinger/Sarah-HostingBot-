@@ -2,7 +2,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 
-from handlers.state.delete import DeleteForm
+from handlers.state.delete_form import DeleteForm
 from utils.config import dp, db
 
 
