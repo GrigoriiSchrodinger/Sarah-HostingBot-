@@ -33,7 +33,7 @@ async def process_password(message: Message, state: FSMContext):
     await state.set_state(RegistrationForm.ready)
     data = await state.get_data()
     await message.answer(
-        text=f"Так, твой email - {data.get('email')}\npassword - {data.get('password')}\n Верно?",
+        text=f"Так, твой email - {data.get('email')}\npassword - {data.get('password')}\nВерно?",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
@@ -58,19 +58,19 @@ async def process_finish(message: Message, state: FSMContext):
                 email=data.get("email"),
                 password=data.get("password")
             )
-            await message.answer(
+            await message.reply(
                 text=f"Сохранила!",
                 reply_markup=ReplyKeyboardRemove()
             )
         except sqlite3.IntegrityError:
-            await message.answer(
+            await message.reply(
                 text=f"Ты уже зареган, мальчик мой",
                 reply_markup=ReplyKeyboardRemove()
             )
         await state.clear()
     else:
         await state.clear()
-        await message.answer(
+        await message.reply(
             text="Ну давай заново) Отправь мне свой email.",
             reply_markup=ReplyKeyboardRemove()
         )

@@ -6,6 +6,7 @@ from aiogram.enums import ParseMode
 from handlers.delete_user import command_delete_user
 from handlers.registration import command_registration
 from handlers.start import command_start_handler
+from handlers.vpn_list import command_vpn
 from utils.config import TOKEN, dp, db
 from utils.logger import logger
 from utils.text import LOGO
@@ -13,7 +14,8 @@ from utils.text import LOGO
 commands_handlers = [
     command_start_handler,
     command_registration,
-    command_delete_user
+    command_delete_user,
+    command_vpn,
 ]
 
 
@@ -32,3 +34,4 @@ if __name__ == "__main__":
         asyncio.run(main(bot))
     except Exception as error:
         logger.warning(error)
+
