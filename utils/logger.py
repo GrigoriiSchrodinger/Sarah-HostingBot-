@@ -23,20 +23,22 @@ class CustomFormatter(logging.Formatter):
 
     def format(self, record):
         log_fmt = self.FORMATS.get(record.levelno)
-        formatter = logging.Formatter(log_fmt)
+        formatter = logging.Formatter(log_fmt.strip())
         return formatter.format(record)
 
 
 LEVEL = logging.DEBUG
 FILE_LOGS = 'log_info.log'
+
 colored_formatter = CustomFormatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+plain_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
 logger.setLevel(LEVEL)
 
 file_handler = logging.FileHandler(FILE_LOGS)
 file_handler.setLevel(LEVEL)
-file_handler.setFormatter(colored_formatter)
+file_handler.setFormatter(plain_formatter)
 
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(LEVEL)
@@ -47,7 +49,7 @@ aiogram_logger.setLevel(LEVEL)
 
 aiogram_file_handler = logging.FileHandler(FILE_LOGS)
 aiogram_file_handler.setLevel(LEVEL)
-aiogram_file_handler.setFormatter(colored_formatter)
+aiogram_file_handler.setFormatter(plain_formatter)
 
 aiogram_stream_handler = logging.StreamHandler(sys.stdout)
 aiogram_stream_handler.setLevel(LEVEL)
